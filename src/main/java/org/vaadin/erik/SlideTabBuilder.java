@@ -37,7 +37,7 @@ public class SlideTabBuilder {
 
     protected boolean autoCollapseSlider = false;
 
-    protected int zIndex = 9990;
+    protected int zIndex = 1;
 
     /**
      * creates an builder instance that can be configured fluently

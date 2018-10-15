@@ -108,13 +108,15 @@
                 return 'slide-tab'
             }
 
+            constructor() {
+                super();
+                this.outsideClickListener = this._onOutsideClick.bind(this);
+            }
+
             expand(size, vertical) {
                 let content = this.$.content;
                 // Calculate the size if size is negative or zero
                 if (size <= 0) {
-                    console.warn("Scroll height: " + content.scrollHeight);
-                    console.warn("Scroll width: " + content.scrollWidth);
-                    console.warn("Vertical: " + vertical ? "yes" : "no");
                     size = vertical ? content.scrollHeight : content.scrollWidth;
                 }
                 if (vertical) {
@@ -122,6 +124,8 @@
                 } else {
                     content.style.width = size + "px";
                 }
+
+                document.body.addEventListener("click", this.outsideClickListener);
             }
 
             collapse(vertical) {
@@ -130,6 +134,24 @@
                 } else {
                     this.$.content.style.width = "0";
                 }
+
+                document.body.removeEventListener("click", this.outsideClickListener);
+            }
+
+            _onOutsideClick(event) {
+                if (!this._isChildElement(event.target)) {
+                    this.$server.onOutsideClicked();
+                }
+            }
+
+            _isChildElement(element) {
+                while (element != null) {
+                    if (element == this) {
+                        return true;
+                    }
+                    element = element.parentNode;
+                }
+                return false;
             }
         }
 

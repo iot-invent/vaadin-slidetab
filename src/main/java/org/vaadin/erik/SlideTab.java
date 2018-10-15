@@ -1,7 +1,11 @@
 package org.vaadin.erik;
 
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasStyle;
@@ -11,6 +15,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.server.Command;
+import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
 @Tag("slide-tab")
@@ -24,9 +30,15 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
 
     private SlideMode slideMode;
     private boolean expanded;
+    private boolean autoCollapsing;
+    private boolean toggleEnabled;
+
     private int pixelSize;
     private int animationDuration;
     private int zIndex;
+
+    private Timer timer = new Timer();
+    private TabTask currentTask;
 
     public SlideTab(SlideTabBuilder builder) {
         add(builder.content);
@@ -40,19 +52,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         setZIndex(builder.zIndex);
         setCaption(builder.caption);
         setTabPosition(builder.tabPosition);
+        setAutoCollapsing(builder.autoCollapseSlider);
+        setToggleEnabled(true);
 
-        // TODO: getModel().setAutoCollapseSlider(builder.autoCollapseSlider);
+        if (builder.listeners != null) {
+            builder.listeners.forEach(this::addToggleListener);
+        }
 
-        /*
-        getState().mode = builder.mode;
-        getState().tabPosition = builder.tabPosition;
-        */
-
-//        if (builder.listeners != null) {
-//            builder.listeners.forEach(l -> {
-//                addToggleListener(l);
-//            });
-//        }
         if (builder.styles != null) {
             for (String style : builder.styles) {
                 addClassName(style);
@@ -61,21 +67,43 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     public void expand() {
-        expanded = true;
-        getElement().callFunction("expand", pixelSize, slideMode.isVertical());
+        expand(false);
+
+    }
+
+    private void expand(boolean fromClient) {
+        if (!expanded && toggleEnabled) {
+            expanded = true;
+            getElement().callFunction("expand", pixelSize, slideMode.isVertical());
+            fireEvent(new SlideToggleEvent(this, fromClient, true));
+        }
     }
 
     public void collapse() {
-        expanded = false;
-        getElement().callFunction("collapse", slideMode.isVertical());
+        collapse(false);
+    }
+
+    private void collapse(boolean fromClient) {
+        if(expanded && toggleEnabled) {
+            expanded = false;
+            getElement().callFunction("collapse", slideMode.isVertical());
+            fireEvent(new SlideToggleEvent(this, fromClient, false));
+        }
     }
 
     @EventHandler
     public void toggle() {
         if (isExpanded()) {
-            collapse();
+            collapse(true);
         } else {
-            expand();
+            expand(true);
+        }
+    }
+
+    @ClientCallable
+    public void onOutsideClicked() {
+        if (autoCollapsing && expanded) {
+            collapse(true);
         }
     }
 
@@ -100,6 +128,14 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
                 .forEach(value -> setClassName(value.name().toLowerCase(), value == tabPosition));
     }
 
+    public void setAutoCollapsing(boolean autoCollapsing) {
+        this.autoCollapsing = autoCollapsing;
+    }
+
+    public boolean isAutoCollapsing() {
+        return autoCollapsing;
+    }
+
     /**
      * @return duration in milliseconds
      */
@@ -114,8 +150,10 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param animationDuration in milliseconds
      */
     public void setAnimationDuration(final int animationDuration) {
-        this.animationDuration = animationDuration;
-        contentComponent.getStyle().set("transition", String.format("height %dms, width %dms", animationDuration, animationDuration));
+        if (this.animationDuration != animationDuration) {
+            this.animationDuration = animationDuration;
+            contentComponent.getStyle().set("transition", String.format("height %dms, width %dms", animationDuration, animationDuration));
+        }
     }
 
     public void setFixedContentSize(final int pixelHeight) {
@@ -125,16 +163,6 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     public int getFixedContentSize() {
         return pixelSize;
     }
-
-    /**
-     * by default the {@link SliderPanel} stays open when use clicks outside<br>
-     * when you enable autoCollapse the slider closes in mode of expand when user clicks somewhere else
-     *
-     * @param autoCollapseSlider enable auto collapse in expand state
-     */
-//    public void setAutoCollapseSlider(boolean autoCollapseSlider) {
-//        getState().autoCollapseSlider = autoCollapseSlider;
-//    }
 
     /**
      * z-Index of navigator, content and wrapper<br>
@@ -178,7 +206,6 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         return expanded;
     }
 
-
     /**
      * schedule a state change of the slider on client site<br>
      * a recall within the schedule will cancel the previous one
@@ -187,9 +214,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param animated    should be animated or not
      * @param delayMillis millis in future the task will happen
      */
-//    public void scheduleExpand(final boolean value, final boolean animated, final int delayMillis) {
-//        getRpcProxy(SliderPanelClientRpc.class).scheduleExpand(value, animated, delayMillis);
-//    }
+    public void scheduleExpand(final boolean value, final boolean animated, final int delayMillis) {
+        if (currentTask != null) {
+            currentTask.cancel();
+        }
+        currentTask = new TabTask(() -> setExpanded(value, animated));
+        timer.schedule(currentTask, delayMillis);
+    }
 
     /**
      * schedule a change from expand to collapse vice versa in future. will trigger a timer on client site that will change the slider state
@@ -198,9 +229,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      *
      * @param delayMillis millis in future the task will happen
      */
-//    public void scheduleToggle(final int delayMillis) {
-//        getRpcProxy(SliderPanelClientRpc.class).scheduleExpand(!getState().expand, true, delayMillis);
-//    }
+    public void scheduleToggle(final int delayMillis) {
+        if (currentTask != null) {
+            currentTask.cancel();
+        }
+        currentTask = new TabTask(this::toggle);
+        timer.schedule(currentTask, delayMillis);
+    }
 
     /**
      * schedule a collapse in future. will trigger a timer on client site that will collapse the slider<br>
@@ -208,9 +243,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      *
      * @param delayMillis millis in future the task will happen
      */
-//    public void scheduleCollapse(final int delayMillis) {
-//        getRpcProxy(SliderPanelClientRpc.class).scheduleExpand(false, true, delayMillis);
-//    }
+    public void scheduleCollapse(final int delayMillis) {
+        if (currentTask != null) {
+            currentTask.cancel();
+        }
+        currentTask = new TabTask(this::collapse);
+        timer.schedule(currentTask, delayMillis);
+    }
 
     /**
      * schedule an expand in future. will trigger a timer on client site that will expand the slider<br>
@@ -218,43 +257,46 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      *
      * @param delayMillis millis in future the task will happen
      */
-//    public void scheduleExpand(final int delayMillis) {
-//        getRpcProxy(SliderPanelClientRpc.class).scheduleExpand(true, true, delayMillis);
-//    }
+    public void scheduleExpand(final int delayMillis) {
+        if (currentTask != null) {
+            currentTask.cancel();
+        }
+        currentTask = new TabTask(this::expand);
+        timer.schedule(currentTask, delayMillis);
+    }
 
-
-//    public Registration addToggleListener(SliderPanelToggleListener listener) {
-//        return this.addListener(SliderPanelToggleEvent.class, listener, SliderPanelToggleListener.ELEMENT_TOGGLED_METHOD);
-//    }
+    public Registration addToggleListener(ComponentEventListener<SlideToggleEvent> listener) {
+        return this.addListener(SlideToggleEvent.class, listener);
+    }
 
     /**
      * allow to disable changing toggle<br>
      *     content is not disabled
      */
-//    public void setEnabledToggle(boolean enabled) {
-//        getState().enableToggle = enabled;
-//    }
-//
-//    public boolean isEnabledToggle() {
-//        return getState().enableToggle;
-//    }
+    public void setToggleEnabled(boolean enabled) {
+        this.toggleEnabled = enabled;
+    }
+
+    public boolean isToggleEnabled() {
+        return toggleEnabled;
+    }
+
+    private class TabTask extends TimerTask {
+
+        private Command command;
+
+        private TabTask(Command command) {
+            this.command = command;
+        }
+
+        @Override
+        public void run() {
+            getUI().ifPresent(ui -> ui.access(command));
+        }
+    }
 
     public interface SlideTabModel extends TemplateModel {
         void setCaption(String caption);
         String getCaption();
-
-
-        void setFlowInContent(boolean flowInContent);
-        void setTabSize(int tabSize);
-        void setAnimationDuration(int animationDuration);
-        void setPixel(int pixel);
-        void setAutoCollapseSlider(boolean autoCollapseSlider);
-        void setZIndex(int zIndex);
     }
-
-    /*
-    protected SlideMode mode = SlideMode.TOP;
-
-    protected SlideTabPosition tabPosition = SlideTabPosition.BEGINNING;
-    */
 }
