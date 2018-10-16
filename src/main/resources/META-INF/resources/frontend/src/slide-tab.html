@@ -35,10 +35,10 @@
                 left: auto;
             }
 
-            :host(.left, .right) #content {
+            :host(.left) #content, :host(.right) #content {
                 width: 0;
             }
-            :host(.top, .bottom) #content {
+            :host(.top) #content, :host(.bottom) #content {
                 height: 0;
             }
 
@@ -74,7 +74,7 @@
                 transform: rotate(-90deg) translate(100%, 0);
                 bottom: 0;
             }
-            :host(.beginning.top, .beginning.bottom) #tab {
+            :host(.beginning.top) #tab, :host(.beginning.bottom) #tab {
                 left: 0;
             }
             /* Styles for tab positioning END */
@@ -88,7 +88,7 @@
                 transform: rotate(-90deg) translate(0, -100%);
                 top: 0;
             }
-            :host(.end.top, .end.bottom) #tab {
+            :host(.end.top) #tab, :host(.end.bottom) #tab {
                 right: 0;
             }
 
