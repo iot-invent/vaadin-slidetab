@@ -68,7 +68,6 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
 
     public void expand() {
         expand(false);
-
     }
 
     private void expand(boolean fromClient) {

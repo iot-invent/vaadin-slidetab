@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbee98bb-c2cc-40c3-90d8-c71343e6e4de" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/frontend/styles/demo-styles.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTabBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTabBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/vaadin/erik/SlideTab$SlideTabModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/vaadin/erik/SlideTab.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/org/vaadin/erik/DemoView.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -39,34 +36,34 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="7" />
+          <entry key="html" value="8" />
           <entry key="java" value="29" />
           <entry key="md" value="1" />
-          <entry key="xml" value="3" />
+          <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="7" />
+          <entry key="HTML" value="8" />
           <entry key="JAVA" value="29" />
           <entry key="Markdown" value="1" />
-          <entry key="XML" value="3" />
+          <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="3521" />
-          <entry key="java" value="6045" />
+          <entry key="html" value="5963" />
+          <entry key="java" value="8564" />
           <entry key="txt" value="22" />
-          <entry key="xml" value="75" />
+          <entry key="xml" value="90" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="3521" />
-          <entry key="JAVA" value="6045" />
+          <entry key="HTML" value="5963" />
+          <entry key="JAVA" value="8564" />
           <entry key="PLAIN_TEXT" value="22" />
-          <entry key="XML" value="75" />
+          <entry key="XML" value="90" />
         </counts>
       </usages-collector>
     </session>
@@ -76,10 +73,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3449">
-              <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+            <state relative-caret-position="1168">
+              <caret line="147" column="6" lean-forward="true" selection-start-line="147" selection-start-column="6" selection-end-line="147" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2194#2195#0" expanded="true" />
+                <element signature="e#2223#2224#0" expanded="true" />
                 <element signature="e#2473#2474#0" expanded="true" />
                 <element signature="e#2498#2499#0" expanded="true" />
                 <element signature="e#2935#2936#0" expanded="true" />
@@ -146,36 +145,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Timer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="197" column="41" selection-start-line="197" selection-start-column="41" selection-end-line="197" selection-end-column="41" />
-              <folding>
-                <element signature="e#4831#4832#0" expanded="true" />
-                <element signature="e#4878#4879#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/TimerTask.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
               <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/vaadin/flow-server/1.0.5/flow-server-1.0.5-sources.jar!/com/vaadin/flow/component/HasStyle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="105" column="25" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="25" />
-              <folding>
-                <element signature="e#3376#3377#0" expanded="true" />
-                <element signature="e#3427#3428#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -197,11 +170,45 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="73" column="1" lean-forward="true" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+            <state relative-caret-position="371">
+              <caret line="155" column="53" selection-start-line="155" selection-start-column="53" selection-end-line="155" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4873#4874#0" expanded="true" />
+                <element signature="e#4907#4908#0" expanded="true" />
+                <element signature="e#4946#4947#0" expanded="true" />
+                <element signature="e#4984#4985#0" expanded="true" />
+                <element signature="e#5020#5021#0" expanded="true" />
+                <element signature="e#5056#5057#0" expanded="true" />
+                <element signature="e#5102#5103#0" expanded="true" />
+                <element signature="e#5144#5145#0" expanded="true" />
+                <element signature="e#5183#5184#0" expanded="true" />
+                <element signature="e#5222#5223#0" expanded="true" />
+                <element signature="e#5274#5275#0" expanded="true" />
+                <element signature="e#5322#5323#0" expanded="true" />
+                <element signature="e#5362#5363#0" expanded="true" />
+                <element signature="e#5402#5403#0" expanded="true" />
+                <element signature="e#5456#5457#0" expanded="true" />
+                <element signature="e#5506#5507#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1751">
+              <caret line="103" column="3" lean-forward="true" selection-start-line="103" selection-start-column="3" selection-end-line="103" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/frontend/styles/demo-styles.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="37" column="25" lean-forward="true" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -213,16 +220,12 @@
       <list>
         <option value="Class" />
         <option value="Enum" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>testScope</find>
-      <find>SliderMode</find>
-      <find>SliderPanelBuilder</find>
-      <find>setExpanded</find>
-      <find>setPixel</find>
       <find>build</find>
       <find>build(</find>
       <find>animationDur</find>
@@ -248,6 +251,11 @@
       <find>expand</find>
       <find>collapse</find>
       <find>zIndex</find>
+      <find>test</find>
+      <find>box-shad</find>
+      <find>overflow: hi</find>
+      <find>class</find>
+      <find>color</find>
     </findStrings>
     <replaceStrings>
       <replace>SlideMode</replace>
@@ -273,14 +281,16 @@
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/TestView.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/TesTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/Asd.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideToggleEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTabPosition.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideMode.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html" />
-        <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java" />
-        <option value="$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTabBuilder.java" />
+        <option value="$PROJECT_DIR$/src/test/webapp/frontend/styles.html" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/frontend/styles/demo-styles.html" />
+        <option value="$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java" />
       </list>
     </option>
   </component>
@@ -336,14 +346,6 @@
               <item name="slidetab" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="erik" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="slidetab" type="b2602c69:ProjectViewProjectNode" />
-              <item name="slidetab" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -369,6 +371,15 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="slidetab" type="b2602c69:ProjectViewProjectNode" />
+              <item name="slidetab" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="styles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="slidetab" type="b2602c69:ProjectViewProjectNode" />
@@ -411,9 +422,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539601703375" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539674826990" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -425,6 +437,7 @@
       <recent name="$PROJECT_DIR$/src/test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/frontend/styles" />
       <recent name="$PROJECT_DIR$/src/main/webapp/frontend" />
     </key>
   </component>
@@ -512,12 +525,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539323536889</updated>
-      <workItem from="1539323545222" duration="36310000" />
+      <workItem from="1539323545222" duration="48392000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36310000" />
+    <option name="totallyTimeSpent" value="48392000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1680" y="-595" width="1726" height="1333" extended-state="0" />
@@ -667,13 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="96" column="61" selection-start-line="96" selection-start-column="61" selection-end-line="96" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/vaadin/flow-server/1.0.5/flow-server-1.0.5-sources.jar!/com/vaadin/flow/component/ComponentEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -790,13 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/vaadin/flow-server/1.0.5/flow-server-1.0.5-sources.jar!/com/vaadin/flow/server/Command.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -808,14 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="442" column="40" selection-start-line="442" selection-start-column="40" selection-end-line="442" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html">
-      <provider selected="true" editor-type-id="com.vaadin.designer2.intellij.flowEditor" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -831,12 +822,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="103" column="3" lean-forward="true" selection-start-line="103" selection-start-column="3" selection-end-line="103" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideTab.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3449">
-          <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+        <state relative-caret-position="1168">
+          <caret line="147" column="6" lean-forward="true" selection-start-line="147" selection-start-column="6" selection-end-line="147" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2194#2195#0" expanded="true" />
+            <element signature="e#2223#2224#0" expanded="true" />
             <element signature="e#2473#2474#0" expanded="true" />
             <element signature="e#2498#2499#0" expanded="true" />
             <element signature="e#2935#2936#0" expanded="true" />
@@ -869,12 +869,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/vaadin/erik/SlideMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/frontend/src/slide-tab.html">
+      <provider selected="true" editor-type-id="com.vaadin.designer2.intellij.flowEditor" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/frontend/styles/demo-styles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="25" lean-forward="true" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/org/vaadin/erik/DemoView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="73" column="1" lean-forward="true" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+        <state relative-caret-position="371">
+          <caret line="155" column="53" selection-start-line="155" selection-start-column="53" selection-end-line="155" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4873#4874#0" expanded="true" />
+            <element signature="e#4907#4908#0" expanded="true" />
+            <element signature="e#4946#4947#0" expanded="true" />
+            <element signature="e#4984#4985#0" expanded="true" />
+            <element signature="e#5020#5021#0" expanded="true" />
+            <element signature="e#5056#5057#0" expanded="true" />
+            <element signature="e#5102#5103#0" expanded="true" />
+            <element signature="e#5144#5145#0" expanded="true" />
+            <element signature="e#5183#5184#0" expanded="true" />
+            <element signature="e#5222#5223#0" expanded="true" />
+            <element signature="e#5274#5275#0" expanded="true" />
+            <element signature="e#5322#5323#0" expanded="true" />
+            <element signature="e#5362#5363#0" expanded="true" />
+            <element signature="e#5402#5403#0" expanded="true" />
+            <element signature="e#5456#5457#0" expanded="true" />
+            <element signature="e#5506#5507#0" expanded="true" />
           </folding>
         </state>
       </provider>
