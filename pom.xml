@@ -5,9 +5,9 @@
 
     <groupId>org.vaadin.erik</groupId>
     <artifactId>slidetab</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-beta</version>
     <name>SlideTab</name>
-    <description>Integration of game-card for Vaadin 11</description>
+    <description>A tab that when clicked slides out a panel</description>
 
     <properties>
         <vaadin.version>11.0.0</vaadin.version>
@@ -47,12 +47,6 @@
         <repository>
             <id>Vaadin prereleases</id>
             <url>http://maven.vaadin.com/vaadin-prereleases</url>
-        </repository>
-        <!-- The bintray repository contain webjars immediately after generation. If the webjar is available
-             in Maven central, you do not need this repository -->
-        <repository>
-            <id>webjars</id>
-            <url>https://dl.bintray.com/webjars/maven</url>
         </repository>
     </repositories>
 

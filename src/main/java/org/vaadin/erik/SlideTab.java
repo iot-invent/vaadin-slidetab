@@ -19,6 +19,9 @@ import com.vaadin.flow.server.Command;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
+/**
+ * A component for showing a tab that when clicked expands a panel
+ */
 @Tag("slide-tab")
 @HtmlImport("src/slide-tab.html")
 public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements HasComponents, HasSize, HasStyle {
@@ -43,8 +46,8 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     public SlideTab(SlideTabBuilder builder) {
         add(builder.content);
 
-        slideMode = builder.mode;
         tabComponent.setHeight(builder.tabSize + "px");
+        slideMode = builder.mode;
         addClassName(builder.mode.toString().toLowerCase());
 
         setAnimationDuration(builder.animationDuration);
@@ -52,7 +55,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         setZIndex(builder.zIndex);
         setCaption(builder.caption);
         setTabPosition(builder.tabPosition);
-        setAutoCollapsing(builder.autoCollapseSlider);
+        setClosingOnOutsideClick(builder.autoCollapseSlider);
         setToggleEnabled(true);
 
         if (builder.listeners != null) {
@@ -66,10 +69,18 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         }
     }
 
+    /**
+     * Expands the SlideTab panel
+     */
     public void expand() {
         expand(false);
     }
 
+    /**
+     * Expands the SlideTab panel
+     *
+     * @param fromClient    For the toggle event, true if expansion was triggered by the client
+     */
     private void expand(boolean fromClient) {
         if (!expanded && toggleEnabled) {
             expanded = true;
@@ -78,10 +89,18 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         }
     }
 
+    /**
+     * Collapses the SlideTab panel
+     */
     public void collapse() {
         collapse(false);
     }
 
+    /**
+     * Collapses the SlideTab panel
+     *
+     * @param fromClient    For the toggle event, true if collapse was triggered by the client
+     */
     private void collapse(boolean fromClient) {
         if(expanded && toggleEnabled) {
             expanded = false;
@@ -90,6 +109,9 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         }
     }
 
+    /**
+     * Called by the client when clicking on the tab
+     */
     @EventHandler
     public void toggle() {
         if (isExpanded()) {
@@ -99,6 +121,9 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         }
     }
 
+    /**
+     * Called by the client when clicking outside the panel
+     */
     @ClientCallable
     public void onOutsideClicked() {
         if (autoCollapsing && expanded) {
@@ -107,18 +132,21 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * Caption of the tab escape HTML
+     * Sets the caption of the tab
      */
     public void setCaption(final String caption) {
         getModel().setCaption(caption);
     }
 
+    /**
+     * Returns the caption of the tab
+     */
     public String getCaption() {
         return getModel().getCaption();
     }
 
     /**
-     * controls the position of the tab-panel<br>
+     * Controls the position of the tab-panel
      *
      * @param tabPosition by default MIDDLE
      */
@@ -127,15 +155,23 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
                 .forEach(value -> setClassName(value.name().toLowerCase(), value == tabPosition));
     }
 
-    public void setAutoCollapsing(boolean autoCollapsing) {
+    /**
+     * Sets if the panel should close when clicking outside it
+     */
+    public void setClosingOnOutsideClick(boolean autoCollapsing) {
         this.autoCollapsing = autoCollapsing;
     }
 
-    public boolean isAutoCollapsing() {
+    /**
+     * Returns if the panel should close when clicking outside it
+     */
+    public boolean isClosingOnOutsideClick() {
         return autoCollapsing;
     }
 
     /**
+     * Returns the animation duration when expanding or collapsing the panel
+     *
      * @return duration in milliseconds
      */
     public int getAnimationDuration() {
@@ -143,7 +179,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * set the animation duration<br>
+     * set the animation duration
      * by default 500ms
      *
      * @param animationDuration in milliseconds
@@ -155,34 +191,40 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         }
     }
 
+    /**
+     * Sets a fixed size for the content in pixels
+     */
     public void setFixedContentSize(final int pixelHeight) {
         this.pixelSize = pixelHeight;
     }
 
+    /**
+     * Returns the fixed size of the content in pixels, may be 0
+     */
     public int getFixedContentSize() {
         return pixelSize;
     }
 
     /**
-     * z-Index of navigator, content and wrapper<br>
-     * you can specify for multiple sliders which lays above another
-     *
-     * @param zIndex default <b>9990</b>
+     * Defines the z-index of the panel, default 1
      */
     public void setZIndex(int zIndex) {
         this.zIndex = zIndex;
         getStyle().set("z-index", String.valueOf(zIndex));
     }
 
+    /**
+     * Returns the z-index of the panel
+     */
     public int getZIndex() {
         return zIndex;
     }
 
     /**
-     * change to value when not already set
+     * Expands or collapses the panel
      *
-     * @param expanded    true means expand
-     * @param animated should be animated or not
+     * @param expanded      true to expand
+     * @param animated      should be animated or not
      */
     public void setExpanded(final boolean expanded, final boolean animated) {
         if (this.expanded != expanded) {
@@ -197,16 +239,14 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * it look only on state - a possible queued change is not checked
-     *
-     * @return is expanded
+     * Returns true if expanded or is expanding
      */
     public boolean isExpanded() {
         return expanded;
     }
 
     /**
-     * schedule a state change of the slider on client site<br>
+     * schedule a state change of the slider
      * a recall within the schedule will cancel the previous one
      *
      * @param value       true means expand
@@ -222,8 +262,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * schedule a change from expand to collapse vice versa in future. will trigger a timer on client site that will change the slider state
-     * <br>
+     * schedule a change from expand to collapse vice versa in future.
      * a recall within the schedule will cancel the previous one
      *
      * @param delayMillis millis in future the task will happen
@@ -237,7 +276,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * schedule a collapse in future. will trigger a timer on client site that will collapse the slider<br>
+     * schedule a collapse in future. will trigger a timer that will collapse the slider
      * a recall within the schedule will cancel the previous one
      *
      * @param delayMillis millis in future the task will happen
@@ -251,7 +290,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
-     * schedule an expand in future. will trigger a timer on client site that will expand the slider<br>
+     * schedule an expand in future. will trigger a timer that will expand the slider
      * a recall within the schedule will cancel the previous one
      *
      * @param delayMillis millis in future the task will happen
@@ -264,22 +303,30 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         timer.schedule(currentTask, delayMillis);
     }
 
+    /**
+     * Adds a listener that will be notified when the panel expands or collapses
+     */
     public Registration addToggleListener(ComponentEventListener<SlideToggleEvent> listener) {
         return this.addListener(SlideToggleEvent.class, listener);
     }
 
     /**
-     * allow to disable changing toggle<br>
-     *     content is not disabled
+     *  If set, the panel can not be expanded or collapsed
      */
     public void setToggleEnabled(boolean enabled) {
         this.toggleEnabled = enabled;
     }
 
+    /**
+     * Returns whether or not the panel can be expanded/collapsed
+     */
     public boolean isToggleEnabled() {
         return toggleEnabled;
     }
 
+    /**
+     * A utility class for wrapping a command in a TimerTask and running it in the UI
+     */
     private class TabTask extends TimerTask {
 
         private Command command;
