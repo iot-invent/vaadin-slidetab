@@ -21,6 +21,8 @@ public class SlideTabBuilder {
 
     protected boolean flowInContent = false;
 
+    protected boolean tabVisible = true;
+
     protected int tabSize = 40;
 
     protected List<ComponentEventListener<SlideToggleEvent>> listeners = null;
@@ -140,6 +142,17 @@ public class SlideTabBuilder {
      */
     public SlideTabBuilder tabPosition(final SlideTabPosition tabPosition) {
         this.tabPosition = tabPosition;
+        return this;
+    }
+
+    /**
+     * Sets the visibility of the tab used for opening or closing the panel.
+     *
+     * @param tabVisible    True (default) if the tab should be visible
+     * @return              This builder
+     */
+    public SlideTabBuilder tabVisible(boolean tabVisible) {
+        this.tabVisible = tabVisible;
         return this;
     }
 

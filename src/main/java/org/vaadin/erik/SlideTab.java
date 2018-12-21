@@ -56,6 +56,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         setCaption(builder.caption);
         setTabPosition(builder.tabPosition);
         setClosingOnOutsideClick(builder.autoCollapseSlider);
+        setTabVisible(builder.tabVisible);
         setToggleEnabled(true);
 
         if (builder.listeners != null) {
@@ -218,6 +219,23 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      */
     public int getZIndex() {
         return zIndex;
+    }
+
+    /**
+     * Sets the visibility of the tab.
+     *
+     * If the tab is not visible, it can not be used to open or close the panel.
+     */
+    public void setTabVisible(boolean visible) {
+        // Setting setVisible only toggles the 'hidden' attribute, which for a normal div does nothing
+        tabComponent.getStyle().set("display", visible ? "block" : "none");
+    }
+
+    /**
+     * Returns true if the tab is visible
+     */
+    public boolean isTabVisible() {
+        return tabComponent.isVisible();
     }
 
     /**
