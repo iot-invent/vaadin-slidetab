@@ -157,6 +157,7 @@
                 // Calculate the size if size is negative or zero
                 if (size <= 0) {
                     size = vertical ? content.scrollHeight : content.scrollWidth;
+                    size = Math.min(size, this._getMaxSize(vertical));
                 }
                 if (vertical) {
                     content.style.height = size + "px";
@@ -193,6 +194,20 @@
                     element = element.parentNode;
                 }
                 return false;
+            }
+
+            /**
+             * Returns the maximum size that the slide content can take, which is the width/height of the
+             * body element minus the size of the tab.
+             *
+             * @param vertical      True if the slide opens in a vertical direction
+             * @returns {number}    The maximum size
+             * @private
+             */
+            _getMaxSize(vertical) {
+                // Use the offsetHeight of the tab for both cases, as it's rotated for horizontal slides
+                return vertical ? document.body.scrollHeight - this.$.tab.offsetHeight :
+                    document.body.scrollWidth - this.$.tab.offsetHeight;
             }
         }
 
