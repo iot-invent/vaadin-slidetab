@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
@@ -14,7 +14,7 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-@HtmlImport("styles/demo-styles.html")
+@CssImport("./styles/demo-styles.css")
 @Route("")
 @Push
 public class DemoView extends Div {

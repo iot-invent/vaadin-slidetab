@@ -1,8 +1,13 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+import {PolymerElement, html} from '@polymer/polymer';
+import '@vaadin/vaadin-icons/vaadin-icons';
 
-<dom-module id="slide-tab">
-    <template>
+class SlideTab extends PolymerElement {
+    static get is() {
+        return 'slide-tab'
+    }
+
+    static get template() {
+        return html`
         <style>
             :host {
                 --slide-tab-background-color: var(--lumo-primary-color, blue);
@@ -138,79 +143,71 @@
         </div>
         <div id="content">
             <slot></slot>
-        </div>
+        </div>`;
+    }
 
-    </template>
-    <script>
-        class SlideTab extends Polymer.Element {
-            static get is() {
-                return 'slide-tab'
-            }
+    constructor() {
+        super();
+        this.outsideClickListener = this._onOutsideClick.bind(this);
+    }
 
-            constructor() {
-                super();
-                this.outsideClickListener = this._onOutsideClick.bind(this);
-            }
-
-            expand(size, vertical) {
-                let content = this.$.content;
-                // Calculate the size if size is negative or zero
-                if (size <= 0) {
-                    size = vertical ? content.scrollHeight : content.scrollWidth;
-                    size = Math.min(size, this._getMaxSize(vertical));
-                }
-                if (vertical) {
-                    content.style.height = size + "px";
-                } else {
-                    content.style.width = size + "px";
-                }
-
-                this.classList.toggle("expanded", true);
-                document.body.addEventListener("click", this.outsideClickListener);
-            }
-
-            collapse(vertical) {
-                if (vertical) {
-                    this.$.content.style.height = "0";
-                } else {
-                    this.$.content.style.width = "0";
-                }
-
-                this.classList.toggle("expanded", false);
-                document.body.removeEventListener("click", this.outsideClickListener);
-            }
-
-            _onOutsideClick(event) {
-                if (!this._isChildElement(event.target)) {
-                    this.$server.onOutsideClicked();
-                }
-            }
-
-            _isChildElement(element) {
-                while (element != null) {
-                    if (element == this) {
-                        return true;
-                    }
-                    element = element.parentNode;
-                }
-                return false;
-            }
-
-            /**
-             * Returns the maximum size that the slide content can take, which is the width/height of the
-             * body element minus the size of the tab.
-             *
-             * @param vertical      True if the slide opens in a vertical direction
-             * @returns {number}    The maximum size
-             * @private
-             */
-            _getMaxSize(vertical) {
-                // Use the offsetHeight of the tab for both cases, as it's rotated for horizontal slides
-                return vertical ? document.body.scrollHeight - this.$.tab.offsetHeight :
-                    document.body.scrollWidth - this.$.tab.offsetHeight;
-            }
+    expand(size, vertical) {
+        let content = this.$.content;
+        // Calculate the size if size is negative or zero
+        if (size <= 0) {
+            size = vertical ? content.scrollHeight : content.scrollWidth;
+            size = Math.min(size, this._getMaxSize(vertical));
+        }
+        if (vertical) {
+            content.style.height = size + "px";
+        } else {
+            content.style.width = size + "px";
         }
 
-        customElements.define(SlideTab.is, SlideTab);
-    </script>
-</dom-module>
+        this.classList.toggle("expanded", true);
+        document.body.addEventListener("click", this.outsideClickListener);
+    }
+
+    collapse(vertical) {
+        if (vertical) {
+            this.$.content.style.height = "0";
+        } else {
+            this.$.content.style.width = "0";
+        }
+
+        this.classList.toggle("expanded", false);
+        document.body.removeEventListener("click", this.outsideClickListener);
+    }
+
+    _onOutsideClick(event) {
+        if (!this._isChildElement(event.target)) {
+            this.$server.onOutsideClicked();
+        }
+    }
+
+    _isChildElement(element) {
+        while (element != null) {
+            if (element == this) {
+                return true;
+            }
+            element = element.parentNode;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the maximum size that the slide content can take, which is the width/height of the
+     * body element minus the size of the tab.
+     *
+     * @param vertical      True if the slide opens in a vertical direction
+     * @returns {number}    The maximum size
+     * @private
+     */
+    _getMaxSize(vertical) {
+        // Use the offsetHeight of the tab for both cases, as it's rotated for horizontal slides
+        return vertical ? document.body.scrollHeight - this.$.tab.offsetHeight :
+            document.body.scrollWidth - this.$.tab.offsetHeight;
+    }
+}
+
+customElements.define(SlideTab.is, SlideTab);

@@ -10,7 +10,7 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
@@ -23,7 +23,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
  * A component for showing a tab that when clicked expands a panel
  */
 @Tag("slide-tab")
-@HtmlImport("src/slide-tab.html")
+@JsModule("./src/slide-tab.js")
 public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements HasComponents, HasSize, HasStyle {
 
     @Id("tab")
