@@ -1,0 +1,8 @@
+:host(.important) [part="tab"] {
+    border: 3px solid red;
+    border-top-width: 0;
+}
+
+:host(.important) [part="content"] {
+    font-weight: bold;
+}

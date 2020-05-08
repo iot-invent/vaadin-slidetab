@@ -1,7 +1,8 @@
 import {PolymerElement, html} from '@polymer/polymer';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import '@vaadin/vaadin-icons/vaadin-icons';
 
-class SlideTab extends PolymerElement {
+class SlideTab extends ThemableMixin(PolymerElement) {
     static get is() {
         return 'slide-tab'
     }
@@ -136,12 +137,12 @@ class SlideTab extends PolymerElement {
             }
         </style>
 
-        <div id="tab" on-click="toggle">
+        <div part="tab" id="tab" on-click="toggle">
             [[caption]]
             <iron-icon id="expand" icon="vaadin:vaadin:plus-circle"></iron-icon>
             <iron-icon id="collapse" icon="vaadin:vaadin:minus-circle"></iron-icon>
         </div>
-        <div id="content">
+        <div part="content" id="content">
             <slot></slot>
         </div>`;
     }

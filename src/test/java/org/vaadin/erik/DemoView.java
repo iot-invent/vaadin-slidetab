@@ -15,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @CssImport("./styles/demo-styles.css")
+@CssImport(value = "./styles/demo-slide-tab-styles.css", themeFor = "slide-tab")
 @Route("")
 @Push
 public class DemoView extends Div {
@@ -97,6 +98,7 @@ public class DemoView extends Div {
         // Slide tab for the left panel, shows some text and a button to close
         SlideTab slideTab = new SlideTabBuilder(content, "Important information")
                 .mode(SlideMode.LEFT).tabPosition(SlideTabPosition.MIDDLE).build();
+        slideTab.addClassName("important");
 
         Button button = new Button("Click to close with 1s delay");
         button.addClickListener(event -> slideTab.scheduleCollapse(1000));
