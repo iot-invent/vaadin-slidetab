@@ -139,8 +139,17 @@ class SlideTab extends ThemableMixin(PolymerElement) {
 
         <div part="tab" id="tab" on-click="toggle">
             [[caption]]
-            <iron-icon id="expand" icon="vaadin:vaadin:plus-circle"></iron-icon>
-            <iron-icon id="collapse" icon="vaadin:vaadin:minus-circle"></iron-icon>
+            <div id="expand">
+                <slot name="expand">
+                    <iron-icon icon="vaadin:vaadin:plus-circle"></iron-icon>
+                </slot>
+            </div>
+            
+            <div id="collapse">
+                <slot name="collapse">
+                    <iron-icon icon="vaadin:vaadin:minus-circle"></iron-icon>       
+                </slot>
+            </div>
         </div>
         <div part="content" id="content">
             <slot></slot>

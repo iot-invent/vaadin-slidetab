@@ -9,6 +9,8 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
@@ -160,6 +162,8 @@ public class DemoView extends Div {
         slideTab.addToggleListener(event -> Notification.show(
                 "Top center SlideTab " + (event.isExpand() ? "expanded!" : "closed!"), 2000, Notification.Position.MIDDLE));
         slideTab.setId("outer-panel");
+        slideTab.setExpandComponent(VaadinIcon.EXPAND.create());
+        slideTab.setCollapseComponent(new Span("<Collapse>"));
 
         content.add(
                 new Paragraph("This closes when clicking outside"),

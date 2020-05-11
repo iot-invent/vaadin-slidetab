@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasSize;
@@ -30,6 +31,9 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     private Div tabComponent;
     @Id("content")
     private Div contentComponent;
+
+    private Component expandComponent;
+    private Component collapseComponent;
 
     private SlideMode slideMode;
     private boolean expanded;
@@ -147,6 +151,46 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     }
 
     /**
+     * Sets the component that should be shown next to the caption in the tab when the component is collapsed.
+     */
+    public void setExpandComponent(Component component) {
+        if (expandComponent != null) {
+            remove(expandComponent);
+        }
+        expandComponent = component;
+        expandComponent.getElement().setAttribute("slot", "expand");
+        add(expandComponent);
+    }
+
+    /**
+     * Returns the component that is shown next to the caption in the tab when the component is collapsed,
+     * or null if one has not been explicitly set.
+     */
+    public Component getExpandComponent() {
+        return expandComponent;
+    }
+
+    /**
+     * Sets the component that should be shown next to the caption in the tab when the component is expanded.
+     */
+    public void setCollapseComponent(Component component) {
+        if (collapseComponent != null) {
+            remove(collapseComponent);
+        }
+        collapseComponent = component;
+        collapseComponent.getElement().setAttribute("slot", "collapse");
+        add(collapseComponent);
+    }
+
+    /**
+     * Returns the component that is shown next to the caption in the tab when the component is expanded,
+     * or null if one has not been explicitly set.
+     */
+    public Component getCollapseComponent() {
+        return collapseComponent;
+    }
+
+    /**
      * Controls the position of the tab-panel
      *
      * @param tabPosition by default MIDDLE
@@ -228,7 +272,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      */
     public void setTabVisible(boolean visible) {
         // Setting setVisible only toggles the 'hidden' attribute, which for a normal div does nothing
-        tabComponent.getStyle().set("display", visible ? "block" : "none");
+        tabComponent.getStyle().set("display", visible ? "flex" : "none");
     }
 
     /**
