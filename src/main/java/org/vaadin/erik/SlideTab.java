@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -89,9 +90,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     private void expand(boolean fromClient) {
         if (!expanded && toggleEnabled) {
             expanded = true;
-            getElement().callFunction("expand", pixelSize, slideMode.isVertical());
+            doExpand();
             fireEvent(new SlideToggleEvent(this, fromClient, true));
         }
+    }
+
+    private void doExpand() {
+        getElement().callFunction("expand", pixelSize, slideMode.isVertical());
     }
 
     /**
@@ -406,5 +411,13 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     public interface SlideTabModel extends TemplateModel {
         void setCaption(String caption);
         String getCaption();
+    }
+
+    @Override
+    public void onAttach(AttachEvent attachEvent) {
+        // Ensures the component in the browser is in sync
+        if (expanded) {
+            doExpand();
+        }
     }
 }
