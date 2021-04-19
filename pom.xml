@@ -10,7 +10,7 @@
     <description>A tab that when clicked slides out a panel</description>
 
     <properties>
-        <vaadin.version>14.4.2</vaadin.version>
+        <vaadin.version>19.0.5</vaadin.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
