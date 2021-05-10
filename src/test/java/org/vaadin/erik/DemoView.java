@@ -12,14 +12,12 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @CssImport("./styles/demo-styles.css")
 @CssImport(value = "./styles/demo-slide-tab-styles.css", themeFor = "slide-tab")
 @Route("")
-@Push
 public class DemoView extends Div {
 
     public DemoView() {
