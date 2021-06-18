@@ -218,6 +218,19 @@ class SlideTab extends ThemableMixin(PolymerElement) {
         return vertical ? document.body.scrollHeight - this.$.tab.offsetHeight :
             document.body.scrollWidth - this.$.tab.offsetHeight;
     }
+
+
+    connectedCallback() {
+        super.connectedCallback();
+        if (this.classList.contains("expanded")) {
+            document.body.addEventListener("click", this.outsideClickListener);
+        }
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        document.body.removeEventListener("click", this.outsideClickListener);
+    }
 }
 
 customElements.define(SlideTab.is, SlideTab);
