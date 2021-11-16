@@ -1,9 +1,5 @@
 package org.vaadin.erik;
 
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
@@ -21,6 +17,9 @@ import com.vaadin.flow.server.Command;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
+import java.util.Arrays;
+import java.util.TimerTask;
+
 /**
  * A component for showing a tab that when clicked expands a panel
  */
@@ -36,7 +35,9 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     private Component expandComponent;
     private Component collapseComponent;
 
-    private SlideMode slideMode;
+    private final SlideMode slideMode;
+    private final ScheduleStrategy scheduleStrategy;
+
     private boolean expanded;
     private boolean autoCollapsing;
     private boolean toggleEnabled;
@@ -44,9 +45,6 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     private int pixelSize;
     private int animationDuration;
     private int zIndex;
-
-    private Timer timer = new Timer();
-    private TabTask currentTask;
 
     public SlideTab(SlideTabBuilder builder) {
         add(builder.content);
@@ -63,6 +61,12 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
         setClosingOnOutsideClick(builder.autoCollapseSlider);
         setTabVisible(builder.tabVisible);
         setToggleEnabled(true);
+
+        if (builder.scheduleStrategy != null) {
+            scheduleStrategy = builder.scheduleStrategy;
+        } else {
+            scheduleStrategy = new DefaultScheduleStrategy();
+        }
 
         if (builder.listeners != null) {
             builder.listeners.forEach(this::addToggleListener);
@@ -321,11 +325,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param delayMillis millis in future the task will happen
      */
     public void scheduleExpand(final boolean value, final boolean animated, final int delayMillis) {
-        if (currentTask != null) {
-            currentTask.cancel();
-        }
-        currentTask = new TabTask(() -> setExpanded(value, animated));
-        timer.schedule(currentTask, delayMillis);
+        scheduleStrategy.schedule(new TabTask(() -> setExpanded(value, animated)), delayMillis);
     }
 
     /**
@@ -335,11 +335,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param delayMillis millis in future the task will happen
      */
     public void scheduleToggle(final int delayMillis) {
-        if (currentTask != null) {
-            currentTask.cancel();
-        }
-        currentTask = new TabTask(this::toggle);
-        timer.schedule(currentTask, delayMillis);
+        scheduleStrategy.schedule(new TabTask(this::toggle), delayMillis);
     }
 
     /**
@@ -349,11 +345,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param delayMillis millis in future the task will happen
      */
     public void scheduleCollapse(final int delayMillis) {
-        if (currentTask != null) {
-            currentTask.cancel();
-        }
-        currentTask = new TabTask(this::collapse);
-        timer.schedule(currentTask, delayMillis);
+        scheduleStrategy.schedule(new TabTask(this::collapse), delayMillis);
     }
 
     /**
@@ -363,11 +355,7 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
      * @param delayMillis millis in future the task will happen
      */
     public void scheduleExpand(final int delayMillis) {
-        if (currentTask != null) {
-            currentTask.cancel();
-        }
-        currentTask = new TabTask(this::expand);
-        timer.schedule(currentTask, delayMillis);
+        scheduleStrategy.schedule(new TabTask(this::expand), delayMillis);
     }
 
     /**
@@ -394,9 +382,9 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
     /**
      * A utility class for wrapping a command in a TimerTask and running it in the UI
      */
-    private class TabTask extends TimerTask {
+    public class TabTask extends TimerTask {
 
-        private Command command;
+        private final Command command;
 
         private TabTask(Command command) {
             this.command = command;
@@ -420,4 +408,5 @@ public class SlideTab extends PolymerTemplate<SlideTab.SlideTabModel> implements
             doExpand();
         }
     }
+
 }
