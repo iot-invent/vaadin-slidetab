@@ -3,23 +3,24 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.vaadin.erik</groupId>
+    <groupId>io.rtlscloud.vaadin</groupId>
     <artifactId>slidetab</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4-SNAPSHOT</version>
     <name>SlideTab</name>
     <description>A tab that when clicked slides out a panel</description>
 
     <properties>
-        <vaadin.version>14.5.4</vaadin.version>
-
+        <vaadin.version>14.6.0</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-    <organization>
-        <name>Erik Lumme</name>
-    </organization>
+	<scm>
+		<connection>scm:git:https://github.com/iot-invent/vaadin-slidetab.git</connection>
+		<url>https://github.com/iot-invent/vaadin-slidetab</url>
+		<developerConnection>scm:git:https://github.com/iot-invent/vaadin-slidetab.git</developerConnection>
+	</scm>
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -93,7 +94,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -143,6 +143,19 @@
         </plugins>
     </build>
 
+	<distributionManagement>
+		<repository>
+			<id>internal</id>
+			<name>Release Repository</name>
+			<url>${repo.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>${repo.snapshots}</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
     <profiles>
         <profile>
             <id>directory</id>
