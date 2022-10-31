@@ -24,79 +24,27 @@ class SlideTab extends ThemableMixin(PolymerElement) {
                 right: 0;
                 bottom: 0;
             }
-            :host(.bottom) {
-                flex-flow: column;
-                top: auto;
-            }
-            :host(.top) {
-                flex-flow: column-reverse;
-                bottom: auto;
-            }
-            :host(.left) {
-                flex-flow: row-reverse;
-                right: auto;
-            }
-            :host(.right) {
+            
+            :host {
                 flex-flow: row;
                 left: auto;
             }
 
-            :host(.left) #content, :host(.right) #content {
+           	:host #content {
                 width: 0;
+                margin-right: -500px;
             }
-            :host(.top) #content, :host(.bottom) #content {
-                height: 0;
-            }
-
-            :host(.left) #tab {
-                border-radius: 0 0 var(--lumo-border-radius) var(--lumo-border-radius);
-                transform-origin: 0 50%;
-                transform: rotate(-90deg) translate(-50%, 50%);
-                left: 100%;
-            }
-            :host(.right) #tab {
-                border-radius: var(--lumo-border-radius) var(--lumo-border-radius) 0 0;
-                transform-origin: 100% 50%;
-                transform: rotate(-90deg) translate(50%, -50%);
+            
+            :host #tab {
+                border-radius: 5px 0 0 5px;
                 right: 100%;
             }
-            :host(.top) #tab {
-                border-radius: 0 0 var(--lumo-border-radius) var(--lumo-border-radius);
-                top: 100%;
-            }
-            :host(.bottom) #tab {
-                border-radius: var(--lumo-border-radius) var(--lumo-border-radius) 0 0;
-                bottom: 100%;
-            }
-
-            /* Styles for tab positioning BEGINNING */
-            :host(.beginning.left) #tab {
-                transform-origin: 0 100%;
-                transform: rotate(-90deg) translate(0, 100%);
-                bottom: 0;
-            }
-            :host(.beginning.right) #tab {
-                transform-origin: 100% 100%;
-                transform: rotate(-90deg) translate(100%, 0);
-                bottom: 0;
-            }
-            :host(.beginning.top) #tab, :host(.beginning.bottom) #tab {
-                left: 0;
-            }
+            
             /* Styles for tab positioning END */
-            :host(.end.left) #tab {
-                transform-origin: 0 0;
-                transform: rotate(-90deg) translate(-100%, 0%);
+            :host #tab {
                 top: 0;
             }
-            :host(.end.right) #tab {
-                transform-origin: 100% 0;
-                transform: rotate(-90deg) translate(0, -100%);
-                top: 0;
-            }
-            :host(.end.top) #tab, :host(.end.bottom) #tab {
-                right: 0;
-            }
+            
 
             #tab {
                 position: absolute;
@@ -105,7 +53,7 @@ class SlideTab extends ThemableMixin(PolymerElement) {
                 min-width: 120px;
                 background-color: var(--slide-tab-background-color);
                 white-space: nowrap;
-                padding: var(--lumo-space-xs) var(--lumo-space-m);
+                padding: 10px 5px;
             }
             #content {
                 background-color: var(--slide-tab-background-color);
@@ -123,6 +71,7 @@ class SlideTab extends ThemableMixin(PolymerElement) {
                 top: 0; left: 0; bottom: 0; right: 0;
                 z-index: -1;
                 box-shadow: var(--lumo-box-shadow-m);
+                border-radius: 5px 0 0 5px;
             }
 
             #expand, #collapse {
@@ -161,6 +110,20 @@ class SlideTab extends ThemableMixin(PolymerElement) {
         this.outsideClickListener = this._onOutsideClick.bind(this);
     }
 
+	rollOutFromRight(size) {
+        let content = this.$.content;
+        // Calculate the size if size is negative or zero
+        if (size <= 0) {
+            size = content.scrollWidth;
+            size = Math.min(size, this._getMaxSize(false));
+        }
+        content.style.width = size + "px";
+        content.style.marginRight = "0";
+
+        this.classList.toggle("expanded", true);
+        document.body.addEventListener("click", this.outsideClickListener);
+    }
+    
     expand(size, vertical) {
         let content = this.$.content;
         // Calculate the size if size is negative or zero
@@ -178,6 +141,14 @@ class SlideTab extends ThemableMixin(PolymerElement) {
         document.body.addEventListener("click", this.outsideClickListener);
     }
 
+    rollInToRight() {
+        
+        this.$.content.style.marginRight = "-" + this.$.content.style.width;
+        
+        this.classList.toggle("expanded", false);
+        document.body.removeEventListener("click", this.outsideClickListener);
+    }
+    
     collapse(vertical) {
         if (vertical) {
             this.$.content.style.height = "0";
