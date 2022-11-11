@@ -10,19 +10,29 @@ pipeline {
     	buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
         skipStagesAfterUnstable()
 	}
+	triggers {
+        cron('H 4 0 0 1-5')
+    }
+	parameters {
+        booleanParam(name: "RELEASE",
+                description: "Build a release from current commit.",
+                defaultValue: false)
+        string(name: "MVN_PARAMS", defaultValue: "", description: "Aditional Maven Parameters for: mvn clean install deploy")
+    }
+	
     stages {
 
         stage('Build') {
             steps {
 				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn -B -DskipTests clean package"
+					sh "mvn ${params.MVN_PARAMS} -B -DskipTests clean package"
     			} 
 			}
         }
         stage('Test') {
             steps {
 				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn test"
+					sh "mvn ${params.MVN_PARAMS} test"
     			} 
 			}
 		//	post {
@@ -34,9 +44,20 @@ pipeline {
         stage('Deploy') {
             steps {
 				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn deploy"
+					sh "mvn ${params.MVN_PARAMS} deploy"
     			} 
 			}
+        }
+        stage("Release") {
+            when {
+                expression { params.RELEASE }
+            }
+            steps {
+               	withMaven(maven: 'M3', 
+               			  mavenSettingsConfig: 'iot_maven') {
+					sh "mvn ${params.MVN_PARAMS} -B -Dresume=false release:prepare release:perform"
+   				}
+            }
         }
 
  
