@@ -53,10 +53,14 @@ pipeline {
                 expression { params.RELEASE }
             }
             steps {
-               	withMaven(maven: 'M3', 
-               			  mavenSettingsConfig: 'iot_maven') {
-					sh "mvn ${params.MVN_PARAMS} -B -Dresume=false release:prepare release:perform"
-   				}
+               	 withCredentials([usernamePassword(credentialsId: 'iot-invent-bot', 
+                				 usernameVariable: 'GIT_USER', 
+                				 passwordVariable: 'GIT_PWD')]) {
+	               	withMaven(maven: 'M3', 
+	               			  mavenSettingsConfig: 'iot_maven') {
+						sh "mvn ${params.MVN_PARAMS} -B -Dresume=false -Dusername=$GIT_USER -Dpassword=$GIT_PWD release:prepare release:perform"
+	   				}
+				}
             }
         }
 
