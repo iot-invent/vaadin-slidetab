@@ -11,7 +11,7 @@ pipeline {
         skipStagesAfterUnstable()
 	}
 	triggers {
-        cron('H 4 0 0 1-5')
+        cron('H 4 * * 1-5')
     }
 	parameters {
         booleanParam(name: "RELEASE",
