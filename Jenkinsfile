@@ -17,7 +17,7 @@ pipeline {
         booleanParam(name: "RELEASE",
                 description: "Build a release from current commit.",
                 defaultValue: false)
-        string(name: "MVN_PARAMS", defaultValue: "", description: "Aditional Maven Parameters for: mvn clean install deploy")
+        string(name: "MVN_PARAMS", defaultValue: "", description: "Aditional Maven Parameters")
     }
 	
     stages {
@@ -55,6 +55,10 @@ pipeline {
             steps {
 	               	withMaven(maven: 'M3', 
 	               			  mavenSettingsConfig: 'iot_maven') {
+						sh """
+        				git config --global user.email support@iot-invent.com
+        				git config --global user.name iot-invent-bot
+        				"""
 						sh "mvn ${params.MVN_PARAMS} -B -Dresume=false release:prepare release:perform"
 	   				}
             }
