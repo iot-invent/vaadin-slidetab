@@ -11,6 +11,7 @@
 	<description>A tab that when clicked slides out a panel</description>
 
 	<properties>
+		<project.scm.id>scm.server.id</project.scm.id>
 		<vaadin.version>14.6.0</vaadin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
