@@ -173,7 +173,7 @@
 
 	<distributionManagement>
 		<repository>
-			<id>internal</id>
+			<id>nexus</id>
 			<name>Release Repository</name>
 			<url>${repo.releases}</url>
 		</repository>
