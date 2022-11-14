@@ -56,6 +56,7 @@ pipeline {
                	 withCredentials([usernamePassword(credentialsId: 'iot-invent-bot', 
                 				 usernameVariable: 'GIT_USER', 
                 				 passwordVariable: 'GIT_PWD')]) {
+	               	sh "git config --global user.name $GIT_USER"
 	               	withMaven(maven: 'M3', 
 	               			  mavenSettingsConfig: 'iot_maven') {
 						sh "mvn ${params.MVN_PARAMS} -B -Dresume=false -Dusername=$GIT_USER -Dpassword=$GIT_PWD release:prepare release:perform"
