@@ -21,7 +21,15 @@ pipeline {
     }
 	
     stages {
-
+		stage("Cleanup") {
+            when {
+                expression { params.CLEANUP }
+            }
+            steps {
+				cleanWs()
+            		checkout scm
+            }
+        }
         stage('Build') {
             steps {
 				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
