@@ -14,6 +14,9 @@ pipeline {
         cron('H 4 * * 1-5')
     }
 	parameters {
+        booleanParam(name: "CLEANUP",
+                description: "Cleanup Current Workspace.",
+                defaultValue: false)
         booleanParam(name: "RELEASE",
                 description: "Build a release from current commit.",
                 defaultValue: false)
